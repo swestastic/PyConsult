@@ -5,9 +5,13 @@ import serial #type: ignore
 import threading
 import datetime
 import time
-from Resources import config
+from Main_Bare_Imports.Settings import Load_Config
 
 class ReadStream(threading.Thread):
+    CONF = 'configJSON.json' # config file
+    Config = Load_Config(CONF)
+
+
     def __init__(self, port, daemon):
         threading.Thread.__init__(self)
         self.daemon = daemon
@@ -76,24 +80,26 @@ class ReadStream(threading.Thread):
         #/ Speed / CAS/RPM / CoolantTemp / BatteryVoltage / ThrottlePosition / CAS/RPM / MAF / LH02 / DigitalBit / IgnitionTiming / AAC / AFAlphaL / AFAlphaLSelfLear / M/R F/C Mnt /
         self.consume_data() 
 
-    if config.Units_Speed == 1:
+    if Config["Units_Speed"] == 1:
         Speed_Units = 'MPH'
         def convertToSpeed(self,inputData):
-            return int(round((inputData * 2.11) * 0.621371192237334 * config.Combined_Ratio))
+            global Config
+            return int(round((inputData * 2.11) * 0.621371192237334 * Config["New_Final"] / Config["Stock_Final"],2))
         
         def convertToFuel(self,speed,injector): # Miles per gallon #NOTE Needs testing
+            global Config
             # round((60 * 2.11 * 0.621371192237334 * 1) / (0.5 * 4.28),2) #Mi
-            return round((speed * 2.11 * 0.621371192237334 * config.Combined_Ratio) / (injector/100 * 4.28),2)
+            return round((speed * 2.11 * 0.621371192237334 * Config["New_Final"] / Config["Stock_Final"]) / (injector/100 * 4.28),2)
     else:
         Speed_Units = 'KPH'
         def convertToSpeed(self,inputData):
-            return int(round((inputData * 2.11)*config.Combined_Ratio))
+            return int(round((inputData * 2.11)*Config["New_Final"] / Config["Stock_Final"]))
 
         def convertToFuel(self,speed,injector): # Km/L #NOTE Broken!! Fix Me
             # round((96.56 * 2.11  * 1) / (0.5*16.2),2) #KM
-            return round((speed * 2.11  * config.Combined_Ratio) / (injector/100*1000*16.2),2) # NOTE Broken need to figure out the correct factor for this
+            return round((speed * 2.11  * Config["New_Final"] / Config["Stock_Final"]) / (injector/100*1000*16.2),2) # NOTE Broken need to figure out the correct factor for this
         
-    if config.Units_Temp == 1:
+    if Config["Units_Temp"] == 1:
         #Temp_Units = 'F'
         def convertToTemp(self,inputData):
             return (inputData - 50) * 9/5 + 32
