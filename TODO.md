@@ -4,6 +4,8 @@
 
 - loading animation while connecting to ecu
 
+- Set up the combobox for COM ports to actually change the port to connect to (defined in Read.py)
+
 # DTCs
 
 - everything lol
@@ -12,7 +14,7 @@
 
 # Data Stream
 
-- everything lol
+- Fix a bug where Load_Config doesn't seem to be working correctly. 
 
 # Testing
 

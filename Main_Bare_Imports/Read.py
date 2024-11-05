@@ -7,7 +7,11 @@ import datetime
 import time
 from Main_Bare_Imports.Settings import Load_Config
 
+CONF = 'configJSON.json' # config file
+Config = Load_Config(CONF)
+
 class ReadStream(threading.Thread):
+
     CONF = 'configJSON.json' # config file
     Config = Load_Config(CONF)
 
@@ -27,6 +31,9 @@ class ReadStream(threading.Thread):
         self.TIM_Value = 0
         self.TPS_Value = 0
         self.FUEL_Value = 0
+
+        CONF = 'configJSON.json' # config file
+        Config = Load_Config(CONF)
         
         self.Header = 255
         self.returnBytes = 14

@@ -1,9 +1,9 @@
 import serial
 import time
 
-def PortConnect(PORT,BYPASSED):
+def PortConnect(PORT):
     try:
-        PORT,BYPASSED = serial.Serial('/dev/ttyUSB0', 9600, timeout=None)
+        PORT = serial.Serial('COM3', 9600, timeout=None)
     except OSError:
         if PORT:
             if PORT.is_open:  # Check if PORT is not None and is open
@@ -13,7 +13,7 @@ def PortConnect(PORT,BYPASSED):
                 PORT.open()  # port is not none but is closed
             else:
                 print("Init fail")  # Handle the case where PORT is still None
-    return PORT,BYPASSED
+    return PORT
 
 def ECU_Connect(PORT,ECU_CONNECTED,BYPASSED):
     # Attempts to connect to the ECU using the initialization sequence.
@@ -38,7 +38,7 @@ def ECU_Connect(PORT,ECU_CONNECTED,BYPASSED):
                 ECU_CONNECTED = True
 
             else: # NOTE might be able to remove this
-                PORT,BYPASSED = PortConnect(PORT,BYPASSED)
+                PORT = PortConnect(PORT)
 
         except ValueError:
             # PORT.open()
