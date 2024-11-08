@@ -1,9 +1,9 @@
 import serial
 import time
 
-def PortConnect(PORT):
+def PortConnect(PORT,COMPORT):
     try:
-        PORT = serial.Serial('COM3', 9600, timeout=None)
+        PORT = serial.Serial(COMPORT, 9600, timeout=None)
     except OSError:
         if PORT:
             if PORT.is_open:  # Check if PORT is not None and is open
