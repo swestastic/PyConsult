@@ -22,3 +22,5 @@ Just run `python3 main.py` after changing your working directory to the folder o
 Calibration settings for units, speed correction (for different differential gears or wheel/tire sizes), and warning thresholds can be altered in `Settings`.
 
 Data readouts can be seen in `Data Stream`.
+
+Settings values are stored in `configJSON.json`.
