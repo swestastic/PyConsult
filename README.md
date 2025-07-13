@@ -1,4 +1,4 @@
-# PyConsult by Swestastic
+# PyConsult
 
 PyConsult is the logic and backend of my other project, PiConsult, now with a GUI for desktop use! I built this because I wanted to easily test new features for PiConsult, rather than having to deal with the Pi as a middle man. This also can serve as an alternative to some other common Consult programs, which have historically been Windows only, cost $30-$50 USD, and haven't been updated in 10+ years. PyConsult should, in theory, work on Linux and OS X based systems, although I haven't tested it yet.
 
