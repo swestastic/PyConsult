@@ -5,7 +5,7 @@ import serial #type: ignore
 import threading
 import datetime
 import time
-from Main_Bare_Imports.Settings import Load_Config
+from Utils.Settings import Load_Config
 
 CONF = 'configJSON.json' # config file
 Config = Load_Config(CONF)

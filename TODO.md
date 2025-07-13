@@ -2,28 +2,20 @@
 
 ## Landing Window
 
-- create a function that looks for new serial inputs every couple seconds so that the dropdown menu works if you plug in the cable after starting the program
-  - might be working?
-
-- loading animation while connecting to ecu
-  
-  - should be working
-
-- Set up the combobox for COM ports to actually change the port to connect to (defined in Connection.py)
-
-  - might be working?
-
-## DTCs
-
-- everything lol
-
-## Settings
+- populate default item in combobox after checking for serial inputs with the first one, if one is selected then don't update it
 
 ## Data Stream
 
-- Fix a bug where Load_Config doesn't seem to be working correctly.
-  - should be fixed? we had strings instead of floats
+- Flash relevant box red when reaching settings-defined warning values.
+
+- live gauge needles rather than just value outputs
+
+## DTCs
+
+- Everything!
+
+
 
 ## Testing
 
-- everything lol
+- Everything!
