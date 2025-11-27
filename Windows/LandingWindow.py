@@ -144,9 +144,8 @@ class LandingWindow:
     def launch_dtc(self):
         """Launch DTC window"""
         if self._check_connection():
-            # TODO: Implement DTC window
-            from Windows.DataStreamWindow import DataStreamWindow
-            DataStreamWindow(self.PORT, self.config_file, test_mode=self.TEST_MODE)
+            from Windows.DTCWindow import DTCWindow
+            DTCWindow(self.PORT).run()
 
     def launch_testing(self):
         """Launch testing window"""
