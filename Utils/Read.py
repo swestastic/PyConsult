@@ -5,6 +5,7 @@ import serial #type: ignore
 import threading
 import datetime
 import time
+import random
 from Utils.Settings import Load_Config
 
 CONF = 'configJSON.json' # config file
@@ -139,3 +140,71 @@ class ReadStream(threading.Thread):
     def logToFile(self,data,fileName):
         with open(fileName + '.hex', 'a+') as logFile:
             logFile.write(data)
+
+
+class RandomReadStream(threading.Thread):
+    """Generates random automotive sensor data for testing purposes"""
+    
+    def __init__(self, port=None, daemon=True):
+        threading.Thread.__init__(self)
+        self.daemon = daemon
+        self.port = port  # Not used, but kept for compatibility
+        
+        # Initialize values
+        self.SPEED_Value = 0
+        self.RPM_Value = 0
+        self.TEMP_Value = 0
+        self.BATT_Value = 0
+        self.TPS_Value = 0
+        self.MAF_Value = 0
+        self.AAC_Value = 0
+        self.INJ_Value = 0
+        self.TIM_Value = 0
+        self.FUEL_Value = 0
+        
+        self.running = False
+        self.start()
+        
+    def run(self):
+        """Start generating random data"""
+        self.running = True
+        self._generate_data()
+        
+    def _generate_data(self):
+        """Internal method to continuously generate random data"""
+        while self.running:
+            # RPM: 600-7000
+            self.RPM_Value = random.randint(600, 7000)
+            
+            # Speed: 0-120 mph
+            self.SPEED_Value = random.randint(0, 120)
+            
+            # TPS (Throttle Position Sensor): 0-100%
+            self.TPS_Value = round(random.uniform(0, 100), 1)
+            
+            # Temperature: 140-220°F
+            self.TEMP_Value = random.randint(140, 220)
+            
+            # Timing: -10 to 40 degrees
+            self.TIM_Value = random.randint(-10, 40)
+            
+            # Battery: 12-15V
+            self.BATT_Value = round(random.uniform(12.0, 15.0), 1)
+            
+            # AAC (Auxiliary Air Control): 0-100
+            self.AAC_Value = random.randint(0, 100)
+            
+            # Injector pulse width: 1-20ms
+            self.INJ_Value = round(random.uniform(1.0, 20.0), 2)
+            
+            # MAF: 0-5V
+            self.MAF_Value = round(random.uniform(0, 5), 2)
+            
+            # Fuel: 10-30 MPG
+            self.FUEL_Value = round(random.uniform(10, 30), 1)
+            
+            time.sleep(0.1)  # Update 10 times per second
+    
+    def stop(self):
+        """Stop generating random data"""
+        self.running = False
